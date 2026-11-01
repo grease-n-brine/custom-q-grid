@@ -8,6 +8,7 @@
 struct Environment2D {
     int width;
     int height;
+    std::vector<Agent> agents;
 };
 
 struct Point2D {
