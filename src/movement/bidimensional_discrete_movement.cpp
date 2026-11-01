@@ -28,5 +28,9 @@ bool BidimensionalDiscreteMovement::isValidMove(const Environment2D& env, const 
         return false;
     }
 
+    if (env.grid[nextY][nextX].blocking) {
+        return false;
+    }
+
     return true;
 }
