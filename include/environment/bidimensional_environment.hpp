@@ -7,12 +7,11 @@ class BidimensionalEnvironment {
     Environment2D env;
 
     public:
-    BidimensionalEnvironment(int width, int height); 
+        BidimensionalEnvironment(int width, int height); 
 
-    int getWidth() const;
-    int getHeight() const;
-
-    Environment2D getEnvironment() const;
+        int getWidth() const;
+        int getHeight() const;
+        Environment2D getEnvironment() const;
 
     private:
         void setEnvironment(const Environment2D& newEnv);
