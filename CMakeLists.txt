@@ -17,6 +17,7 @@ add_executable(custom_q_grid
     src/entry.cpp
     src/agent/discrete_agent.cpp
     src/environment/bidimensional_environment.cpp
+    src/environment/obstacle.cpp
     src/movement/bidimensional_discrete_movement.cpp
 )
 
