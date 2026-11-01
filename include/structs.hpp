@@ -9,6 +9,7 @@ struct Environment2D {
     int width;
     int height;
     std::vector<Agent> agents;
+    std::vector<std::vector<Cell>> grid;
 };
 
 struct Point2D {
