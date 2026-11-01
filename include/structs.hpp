@@ -3,10 +3,30 @@
 #define STRUCTS_HPP
 
 #include <string>
+#include <vector>
 
 struct Environment2D {
     int width;
     int height;
+};
+
+struct Point2D {
+    int x;
+    int y;
+};
+
+enum class CellType {
+    Empty,
+    Blocked,
+    PositiveReward,
+    NegativeReward
+};
+
+struct Cell {
+    Point2D position;
+    CellType type = CellType::Empty;
+    double reward = 0.0;
+    bool blocking = false;
 };
 
 struct Agent {
