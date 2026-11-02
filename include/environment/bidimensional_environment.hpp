@@ -11,7 +11,7 @@ class BidimensionalEnvironment {
     std::vector<Cell> cells;
 
     public:
-        BidimensionalEnvironment(int width, int height);
+        BidimensionalEnvironment(int width, int height, std::vector<Agent> agents);
 
         int getWidth() const;
         int getHeight() const;
