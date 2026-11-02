@@ -1,4 +1,4 @@
-#include "discrete_agent.hpp"
+#include "bidimensional_discrete_agent.hpp"
 
 DiscreteAgent::DiscreteAgent() : agent{"agent", 0, 0, 0} {}
 

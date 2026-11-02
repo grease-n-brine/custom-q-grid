@@ -5,6 +5,9 @@
 #include <string>
 #include <vector>
 
+struct Agent;
+struct Cell;
+
 struct Environment2D {
     int width;
     int height;
