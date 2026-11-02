@@ -4,17 +4,21 @@
 #include "obstacle.hpp"
 #include "bidimensional_discrete_agent.hpp"
 
+std::vector<std::vector<Cell>> createGrid(int width, int height);
+
 int main() {
     DiscreteAgent agent;
-    std::vector<DiscreteAgent> agents;
+    BidimensionalDiscreteMovement movement;
+    std::vector<Agent> agents;
     
     for (int i = 0; i < 1; ++i) {
-        agents.push_back(agent);
+        agents.push_back(agent.getAgent());
     }
-    
-    std::vector<std::vector<Cell>> grid;
-    BidimensionalEnvironment env(10, 10, agent, createGrid(10, 10));
+
+    BidimensionalEnvironment env(10, 10, agents, createGrid(10, 10));
     env.addCell(Cell{{agent.getPosX(), agent.getPosY()}, CellType::Empty, 0.0, false});
+
+    movement.move(agent.getAgent(), 1, 1);
 }
 
 std::vector<std::vector<Cell>> createGrid(int width, int height) {
