@@ -2,9 +2,17 @@
 
 #include <algorithm>
 
-BidimensionalEnvironment::BidimensionalEnvironment(int width, int height) {
+BidimensionalEnvironment::BidimensionalEnvironment(int width, int height, std::vector<Agent> agents) {
     env.width = width;
     env.height = height;
+
+    for (int i = 0; i < agents.size(); ++i) {
+        const Agent agent = agents[i];
+        int agentX = agent.pos_x;
+        int agentY = agent.pos_y;
+
+        addCell(Cell{{agentX, agentY}, CellType::Empty, 0.0, false});
+    }
 }
 
 int BidimensionalEnvironment::getWidth() const {
