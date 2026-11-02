@@ -101,6 +101,22 @@ std::vector<Cell> BidimensionalEnvironment::getCells() const {
     return cells;
 }
 
+std::vector<Agent> BidimensionalEnvironment::getAgents() const {
+    return env.agents;
+}
+
+void BidimensionalEnvironment::addAgent(const Agent& agent) {
+    env.agents.push_back(agent);
+    addCell(Cell{{agent.pos_x, agent.pos_y}, CellType::Empty, 0.0, false});
+}
+
 void BidimensionalEnvironment::setEnvironment(const Environment2D& newEnv) {
     env = newEnv;
+    cells.clear();
+
+    for (const auto& row : newEnv.grid) {
+        for (const auto& cell : row) {
+            addCell(cell);
+        }
+    }
 }
