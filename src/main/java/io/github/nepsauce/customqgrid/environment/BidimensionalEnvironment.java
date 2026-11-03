@@ -101,6 +101,10 @@ public final class BidimensionalEnvironment implements MutableEnvironment {
         addCells(obstacle.toCells());
     }
 
+    public void registerObstacleAt(int x, int y) {
+        addCell(new Cell(new Point2D(x, y), CellType.BLOCKED, 0.0, true));
+    }
+
     public void setEnvironment(Environment2D newEnvironment) {
         this.environment = newEnvironment;
         cells.clear();
@@ -144,5 +148,13 @@ public final class BidimensionalEnvironment implements MutableEnvironment {
         }
 
         return false;
+    }
+
+    public boolean hasObstacleAt(int x, int y) {
+        return isInBounds(x, y) && isBlocked(x, y);
+    }
+
+    public boolean collidesAt(int x, int y) {
+        return !isInBounds(x, y) || hasObstacleAt(x, y);
     }
 }
