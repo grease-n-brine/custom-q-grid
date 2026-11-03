@@ -32,4 +32,10 @@ java -cp target/classes io.github.nepsauce.customqgrid.CustomQGridApplication
 
 ## C++ (Legacy)
 
-The original C++ implementation remains in this repository during migration and will be archived into an outdated C++ area as migration finalization continues.
+The original C++ implementation is preserved in [outdated-cpp/](outdated-cpp/) for reference.
+
+- Legacy C++ source: `outdated-cpp/src`
+- Legacy C++ headers: `outdated-cpp/include`
+- Legacy C++ build config: `outdated-cpp/CMakeLists.txt`
+
+New development should target Java under `src/main/java`.
