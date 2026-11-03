@@ -32,7 +32,12 @@ public final class BidimensionalEnvironment implements MutableEnvironment {
     }
 
     public Environment2D getEnvironment() {
-        return environment;
+        return new Environment2D(
+            environment.getWidth(),
+            environment.getHeight(),
+            environment.getAgents(),
+            environment.getGrid()
+        );
     }
 
     @Override
@@ -47,12 +52,12 @@ public final class BidimensionalEnvironment implements MutableEnvironment {
 
     @Override
     public List<AgentState> getAgents() {
-        return environment.getAgents();
+        return new ArrayList<>(environment.getAgents());
     }
 
     @Override
     public List<Cell> getCells() {
-        return cells;
+        return new ArrayList<>(cells);
     }
 
     @Override

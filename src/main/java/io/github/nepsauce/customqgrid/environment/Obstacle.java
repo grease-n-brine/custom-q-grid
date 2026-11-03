@@ -47,7 +47,7 @@ public final class Obstacle {
     }
 
     public List<Point2D> getPoints() {
-        return points;
+        return new ArrayList<>(points);
     }
 
     public CellType getType() {
