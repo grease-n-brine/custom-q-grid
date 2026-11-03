@@ -26,6 +26,18 @@ public final class BidimensionalDiscreteMovement implements Movement {
             return false;
         }
 
-        return !environment.getGrid().get(nextY).get(nextX).isBlocking();
+        return !isCellBlocking(environment, nextX, nextY);
+    }
+
+    private boolean isCellBlocking(Environment2D environment, int x, int y) {
+        if (environment.getGrid().size() <= y) {
+            return false;
+        }
+
+        if (environment.getGrid().get(y).size() <= x) {
+            return false;
+        }
+
+        return environment.getGrid().get(y).get(x).isBlocking();
     }
 }
