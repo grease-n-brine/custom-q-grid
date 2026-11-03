@@ -38,6 +38,14 @@ public final class DiscreteAgent implements Agent {
         return state;
     }
 
+    public void placeAt(int posX, int posY) {
+        setState(new AgentState(state.name(), state.id(), posX, posY));
+    }
+
+    public void applyState(AgentState newState) {
+        setState(newState);
+    }
+
     private void setState(AgentState newState) {
         this.state = newState;
     }
