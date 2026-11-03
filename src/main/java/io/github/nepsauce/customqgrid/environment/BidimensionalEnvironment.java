@@ -5,6 +5,7 @@ import io.github.nepsauce.customqgrid.core.Cell;
 import io.github.nepsauce.customqgrid.core.CellType;
 import io.github.nepsauce.customqgrid.core.Environment2D;
 import io.github.nepsauce.customqgrid.core.Point2D;
+import io.github.nepsauce.customqgrid.grid.GridCoordinates;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,6 +57,10 @@ public final class BidimensionalEnvironment implements MutableEnvironment {
 
     @Override
     public Cell getCellAt(int x, int y) {
+        if (!isInBounds(x, y)) {
+            return new Cell(new Point2D(x, y), CellType.BLOCKED, 0.0, true);
+        }
+
         for (Cell cell : cells) {
             if (cell.getPosition().x() == x && cell.getPosition().y() == y) {
                 return cell;
@@ -107,11 +112,37 @@ public final class BidimensionalEnvironment implements MutableEnvironment {
 
     @Override
     public boolean isBlocked(int x, int y) {
+        if (!isInBounds(x, y)) {
+            return true;
+        }
+
         return getCellAt(x, y).isBlocking();
     }
 
     @Override
     public double getRewardAt(int x, int y) {
+        if (!isInBounds(x, y)) {
+            return 0.0;
+        }
+
         return getCellAt(x, y).getReward();
+    }
+
+    public boolean isInBounds(int x, int y) {
+        return GridCoordinates.isInBounds(x, y, getWidth(), getHeight());
+    }
+
+    public boolean isOccupied(int x, int y) {
+        if (!isInBounds(x, y)) {
+            return false;
+        }
+
+        for (AgentState agent : getAgents()) {
+            if (agent.posX() == x && agent.posY() == y) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
