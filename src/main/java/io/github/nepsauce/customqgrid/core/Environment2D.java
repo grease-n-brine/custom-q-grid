@@ -17,7 +17,10 @@ public final class Environment2D {
         this.width = width;
         this.height = height;
         this.agents = new ArrayList<>(agents);
-        this.grid = new ArrayList<>(grid);
+        this.grid = new ArrayList<>();
+        for (List<Cell> row : grid) {
+            this.grid.add(new ArrayList<>(row));
+        }
     }
 
     public int getWidth() {
@@ -42,5 +45,18 @@ public final class Environment2D {
 
     public List<List<Cell>> getGrid() {
         return grid;
+    }
+
+    public void putCell(int x, int y, Cell cell) {
+        while (grid.size() <= y) {
+            grid.add(new ArrayList<>());
+        }
+
+        List<Cell> row = grid.get(y);
+        while (row.size() <= x) {
+            row.add(null);
+        }
+
+        row.set(x, cell);
     }
 }
