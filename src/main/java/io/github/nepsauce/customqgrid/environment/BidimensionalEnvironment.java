@@ -1,0 +1,117 @@
+package io.github.nepsauce.customqgrid.environment;
+
+import io.github.nepsauce.customqgrid.core.AgentState;
+import io.github.nepsauce.customqgrid.core.Cell;
+import io.github.nepsauce.customqgrid.core.CellType;
+import io.github.nepsauce.customqgrid.core.Environment2D;
+import io.github.nepsauce.customqgrid.core.Point2D;
+import java.util.ArrayList;
+import java.util.List;
+
+public final class BidimensionalEnvironment implements MutableEnvironment {
+    private Environment2D environment;
+    private final List<Cell> cells;
+
+    public BidimensionalEnvironment(int width, int height, List<AgentState> agents) {
+        this(width, height, agents, List.of());
+    }
+
+    public BidimensionalEnvironment(
+            int width,
+            int height,
+            List<AgentState> agents,
+            List<List<Cell>> grid
+    ) {
+        this.environment = new Environment2D(width, height, agents, grid);
+        this.cells = new ArrayList<>();
+
+        for (AgentState agent : environment.getAgents()) {
+            addCell(new Cell(new Point2D(agent.posX(), agent.posY()), CellType.EMPTY, 0.0, false));
+        }
+    }
+
+    public Environment2D getEnvironment() {
+        return environment;
+    }
+
+    @Override
+    public int getWidth() {
+        return environment.getWidth();
+    }
+
+    @Override
+    public int getHeight() {
+        return environment.getHeight();
+    }
+
+    @Override
+    public List<AgentState> getAgents() {
+        return environment.getAgents();
+    }
+
+    @Override
+    public List<Cell> getCells() {
+        return cells;
+    }
+
+    @Override
+    public Cell getCellAt(int x, int y) {
+        for (Cell cell : cells) {
+            if (cell.getPosition().x() == x && cell.getPosition().y() == y) {
+                return cell;
+            }
+        }
+
+        return new Cell(new Point2D(x, y), CellType.EMPTY, 0.0, false);
+    }
+
+    @Override
+    public void addCell(Cell cell) {
+        for (int i = 0; i < cells.size(); i++) {
+            Cell current = cells.get(i);
+            if (current.getPosition().x() == cell.getPosition().x()
+                    && current.getPosition().y() == cell.getPosition().y()) {
+                cells.set(i, cell);
+                return;
+            }
+        }
+
+        cells.add(cell);
+    }
+
+    @Override
+    public void addCells(List<Cell> newCells) {
+        for (Cell cell : newCells) {
+            addCell(cell);
+        }
+    }
+
+    @Override
+    public void addAgent(AgentState agent) {
+        environment.getAgents().add(agent);
+        addCell(new Cell(new Point2D(agent.posX(), agent.posY()), CellType.EMPTY, 0.0, false));
+    }
+
+    public void addObstacle(Obstacle obstacle) {
+        addCells(obstacle.toCells());
+    }
+
+    public void setEnvironment(Environment2D newEnvironment) {
+        this.environment = newEnvironment;
+        cells.clear();
+
+        for (List<Cell> row : newEnvironment.getGrid()) {
+            addCells(row);
+        }
+    }
+
+    @Override
+    public boolean isBlocked(int x, int y) {
+        return getCellAt(x, y).isBlocking();
+    }
+
+    @Override
+    public double getRewardAt(int x, int y) {
+        return getCellAt(x, y).getReward();
+    }
+}
