@@ -27,7 +27,7 @@ mvn test
 
 ```bash
 mvn -q compile
-java -cp target/classes io.github.nepsauce.customqgrid.CustomQGridApplication
+java -cp target/classes com.greasenbrine.qgrid.CustomQGridApplication
 ```
 
 ## C++ (Legacy)
